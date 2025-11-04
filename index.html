@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>הדרך הטעימה לבריאות מתחילה כאן | הסוכן הקולינרי הבריא</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f8f6;
+      --primary: #3da58a;
+      --primary-dark: #2e7b66;
+      --accent: #fdd388;
+      --text: #142321;
+      --muted: #5a706b;
+      --card-bg: rgba(255, 255, 255, 0.75);
+      --card-border: rgba(20, 35, 33, 0.1);
+      font-family: 'Assistant', 'Segoe UI', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: radial-gradient(circle at top left, rgba(61, 165, 138, 0.18), transparent 40%),
+                  radial-gradient(circle at bottom right, rgba(253, 211, 136, 0.25), transparent 45%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      direction: rtl;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2.5rem clamp(1.5rem, 5vw, 6rem) 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      letter-spacing: 0.02em;
+    }
+
+    .logo svg {
+      width: clamp(2.5rem, 5vw, 3.5rem);
+      height: clamp(2.5rem, 5vw, 3.5rem);
+      filter: drop-shadow(0 4px 12px rgba(61, 165, 138, 0.35));
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 1.5rem;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      left: 0;
+      bottom: -6px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--primary-dark);
+    }
+
+    nav a:hover::after {
+      transform: scaleX(1);
+    }
+
+    main {
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 5vw, 6rem) 5rem;
+      max-width: 1200px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 3rem;
+      padding: 4rem 0 5rem;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+      color: var(--text);
+    }
+
+    .hero-text p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 36ch;
+      margin-bottom: 2rem;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 0.95rem 1.75rem;
+      border-radius: 999px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 18px 35px rgba(61, 165, 138, 0.25);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cta-button svg {
+      width: 1.3rem;
+      height: 1.3rem;
+      transform: translateX(-4px);
+      transition: transform 0.3s ease;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 25px 45px rgba(61, 165, 138, 0.3);
+    }
+
+    .cta-button:hover svg {
+      transform: translateX(-2px) translateY(-2px);
+    }
+
+    .hero-media {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-card {
+      background: var(--card-bg);
+      border-radius: 32px;
+      padding: 2.5rem 2rem;
+      max-width: 360px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 30px 60px rgba(20, 35, 33, 0.12);
+      backdrop-filter: blur(14px);
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .hero-card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--primary-dark);
+    }
+
+    .hero-card ul {
+      list-style: none;
+      color: var(--muted);
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .hero-card li {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+    }
+
+    .hero-card li span.icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(61, 165, 138, 0.12);
+      color: var(--primary);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+
+    section {
+      margin-bottom: 5rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      margin-bottom: 2rem;
+      max-width: 60ch;
+    }
+
+    .value-grid, .category-grid, .faq-grid, .testimonial-grid {
+      display: grid;
+      gap: 1.75rem;
+    }
+
+    .value-grid {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .value-card, .category-card, .faq-card, .testimonial-card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 2rem;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 20px 45px rgba(20, 35, 33, 0.08);
+      backdrop-filter: blur(12px);
+      transform: translateY(40px);
+      opacity: 0;
+      transition: transform 0.8s ease, opacity 0.8s ease;
+    }
+
+    .value-card.visible, .category-card.visible, .faq-card.visible, .testimonial-card.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .value-card h3, .category-card h3, .faq-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .value-card p, .category-card p, .faq-card p {
+      color: var(--muted);
+    }
+
+    .category-card {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .category-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(61, 165, 138, 0.15), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: -1;
+    }
+
+    .category-card:hover::after {
+      opacity: 1;
+    }
+
+    .category-card strong {
+      display: inline-block;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .faq-grid {
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .faq-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .faq-card .question {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .faq-card .answer {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(61, 165, 138, 0.14);
+      color: var(--primary);
+      font-weight: 600;
+      padding: 0.5rem 0.95rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+    }
+
+    .testimonial-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .testimonial-card {
+      position: relative;
+      padding-top: 3rem;
+    }
+
+    .testimonial-card::before {
+      content: "\201C";
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 4rem;
+      color: rgba(61, 165, 138, 0.25);
+      font-family: serif;
+    }
+
+    .testimonial-card .name {
+      margin-top: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .values-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+
+    .chip {
+      background: rgba(20, 35, 33, 0.07);
+      color: var(--text);
+      padding: 0.6rem 1.1rem;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1rem 4rem;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .scroll-indicator {
+      position: fixed;
+      left: 2rem;
+      bottom: 2rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: rgba(20, 35, 33, 0.75);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+      box-shadow: 0 20px 40px rgba(20, 35, 33, 0.25);
+      animation: bounce 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(-10px); }
+      50% { transform: translateY(10px); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+      }
+
+      nav {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .scroll-indicator {
+        left: 1rem;
+        bottom: 1rem;
+        width: 42px;
+        height: 42px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M32 58C45.2548 58 56 47.2548 56 34C56 20.7452 45.2548 10 32 10C18.7452 10 8 20.7452 8 34C8 47.2548 18.7452 58 32 58Z" fill="#3DA58A" opacity="0.18"/>
+        <path d="M21 33.5C21 24.94 27.94 18 36.5 18C45.06 18 52 24.94 52 33.5C52 42.06 45.06 49 36.5 49C27.94 49 21 42.06 21 33.5Z" stroke="#3DA58A" stroke-width="3.2"/>
+        <path d="M16 31.5C16 22.94 22.94 16 31.5 16C40.06 16 47 22.94 47 31.5C47 40.06 40.06 47 31.5 47C22.94 47 16 40.06 16 31.5Z" stroke="#2E7B66" stroke-width="3.2"/>
+      </svg>
+      הסוכן הקולינרי הבריא
+    </div>
+    <nav>
+      <a href="#vision">חזון</a>
+      <a href="#value">הצעת ערך</a>
+      <a href="#categories">קטגוריות</a>
+      <a href="#faq">שאלות</a>
+      <a href="#cta">צור קשר</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="vision">
+      <div class="hero-text">
+        <div class="badge">הדרך הטעימה לבריאות מתחילה כאן</div>
+        <h1>שף-חבר אישי שמכיר את הגוף שלך ואת המטבח שלך.</h1>
+        <p>
+          הסוכן למתכונים בריאים נולד כדי להפוך את הדרך בה אנחנו מבשלים לאינטואיטיבית, טעימה ובריאה. הוא מחבר בין ידע תזונתי עמוק, ניסיון קולינרי ורצון אמיתי לפשט את החוויה במטבח.
+        </p>
+        <a class="cta-button" href="https://chatgpt.com/g/g-689f9a2a6ba8819190fccba83823ed9b-the-healthy-chef" target="_blank" rel="noopener">
+          דברו עם הסוכן עכשיו
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+      <div class="hero-media">
+        <div class="hero-card">
+          <h2>מה תמצאו אצל הסוכן?</h2>
+          <ul>
+            <li><span class="icon">🥦</span> מתכונים מותאמים אישית לפי מטרות בריאות והעדפות טעם.</li>
+            <li><span class="icon">🥣</span> הסברים ברורים על הערך התזונתי וההשפעה על המרקם והטעם.</li>
+            <li><span class="icon">🔥</span> טכניקות בישול ופיצוח טעמים – מהשחמה ועד מרינדות חכמות.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="value">
+      <h2 class="section-title">בישול אמיתי, תוצאות אמיתיות</h2>
+      <p class="section-subtitle">לא עוד מאגר מתכונים כללי. כאן נמצא שף חכם, אנושי ומעודכן שמציע פתרונות נקיים מרעש – רק מה שעובד במטבח הביתי שלכם.</p>
+      <div class="value-grid">
+        <article class="value-card">
+          <h3>גישה קולינרית מודעת</h3>
+          <p>כל המלצה מבוססת על שילובי טעם מנצחים, חומרים זמינים וידע תזונתי מבוסס מחקר.</p>
+        </article>
+        <article class="value-card">
+          <h3>גמישות ושדרוגים</h3>
+          <p>כל מתכון מקבל וריאציות – טבעוני, לילדים, עתיר חלבון או פשוט יותר, לפי מה שמתאים לכם.</p>
+        </article>
+        <article class="value-card">
+          <h3>חוויה שמרגישה אישית</h3>
+          <p>השפה קלילה, בגובה העיניים ועם אנרגיה מחבקת. כמו לדבר עם שף-חבר שבאמת מבין אתכם.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="categories">
+      <h2 class="section-title">גלו את הטעמים</h2>
+      <p class="section-subtitle">בסיס ידע שנבנה ממאות מתכונים ומדריכי עומק – מחולק לקטגוריות שיעזרו לכם למצוא השראה מדויקת.</p>
+      <div class="category-grid">
+        <article class="category-card">
+          <strong>מרקים ונשנושי קדרה</strong>
+          <h3>מרק קוקוס ירוק</h3>
+          <p>איך בונים מרק עשיר בשכבות טעם, עם מגבירי טעם טבעיים ותוספות ירוקים בעיתוי מושלם.</p>
+        </article>
+        <article class="category-card">
+          <strong>מנות עיקריות</strong>
+          <h3>קערת נודלס שומשום ואדממה</h3>
+          <p>איזון בין חלבון, פחמימה ושומן טוב, עם טיפים לתחליפים מותאמים לכל ציוד מטבח.</p>
+        </article>
+        <article class="category-card">
+          <strong>מתוקים מאוזנים</strong>
+          <h3>בראוניז בטטה וטחינה</h3>
+          <p>המתכון שמוכיח שאפשר להכין קינוח מפנק ללא סוכר לבן, עם הסבר על הערך התזונתי של כל רכיב.</p>
+        </article>
+        <article class="category-card">
+          <strong>תחליפי לחם יצירתיים</strong>
+          <h3>לחמניות שקדים וזרעי פשתן</h3>
+          <p>קראנצ'י מבחוץ, רך מבפנים – ודגשים על שילוב סיבים ושומנים איכותיים.</p>
+        </article>
+        <article class="category-card">
+          <strong>מגבירי טעם</strong>
+          <h3>ציר ירקות זהוב</h3>
+          <p>בסיס שמרים כל מנה פשוטה עם תחושת עומק. תלמדו איך לחלץ מתיקות טבעית מירקות.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2 class="section-title">שאלו את הסוכן</h2>
+      <p class="section-subtitle">דמיינו צ'אט מהיר עם שף בריא: שואלים שאלה, מקבלים פתרון מעשי והסברים שמעצימים אתכם לבשל טוב יותר.</p>
+      <div class="faq-grid">
+        <article class="faq-card">
+          <h3 class="question">מה להכין לארוחת ערב קלה?</h3>
+          <p class="answer">קבלו תפריט מלא ל-15 דקות בישול, כולל רשימת החלפות לפי מה שכבר יש במקרר.</p>
+        </article>
+        <article class="faq-card">
+          <h3 class="question">איך משדרגים תבשיל עדשים?</h3>
+          <p class="answer">הסוכן מסביר אילו תבלינים טבעיים יוסיפו עומק, ואיך להקפיץ את הירקות בלי שמן מיותר.</p>
+        </article>
+        <article class="faq-card">
+          <h3 class="question">מה מתאים לילדים בלי סוכר וקמח לבן?</h3>
+          <p class="answer">מתכונים ידידותיים לילדים עם מרקם מוכר וטעמים שמדברים אליהם, כולל גרסאות לגלוטן.</p>
+        </article>
+        <article class="faq-card">
+          <h3 class="question">איך בונים תפריט שבועי מאוזן?</h3>
+          <p class="answer">הסוכן מרכיב תוכנית מאוזנת לפי עקרונות הצלחת הבריאה, עם חלוקת חלבון-פחמימה-שומן.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">מה אנשים מספרים</h2>
+      <p class="section-subtitle">שפים ביתיים, הורים עסוקים וחובבי בריאות כבר התאהבו במדריך שמחבר בין הנאה לבריאות.</p>
+      <div class="testimonial-grid">
+        <article class="testimonial-card">
+          <p>"אף פעם לא חשבתי שאוכל להמציא כל כך הרבה וריאציות לאותה מנה. הסוכן הבין את הטעם של הילדים, והמנה הפכה להיט."</p>
+          <div class="name">דנה, אמא לשלושה</div>
+        </article>
+        <article class="testimonial-card">
+          <p>"זה מרגיש כמו לעבוד עם שף אישי. יש הקשבה, שאלות עומק, ואפילו הסברים מדעיים שמחזקים את הביטחון שלי במטבח."</p>
+          <div class="name">עומר, שף פרטי</div>
+        </article>
+        <article class="testimonial-card">
+          <p>"אני מנהלת קליניקה לתזונה והסוכן הפך לשותף קבוע. הוא מגיש רעיונות עם שיקולים תזונתיים חכמים ומעוררי תיאבון."</p>
+          <div class="name">לינוי, דיאטנית קלינית</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="cta">
+      <h2 class="section-title">אוכל אמיתי. טעם אמיתי. חיים אמיתיים.</h2>
+      <p class="section-subtitle">הצטרפו למסע שמפגיש בין הנאה, ידע תזונתי והדרכה קולינרית עמוקה. הסוכן הבריא כאן כדי להראות שכל אחד יכול לבשל טעים ובריא.</p>
+      <a class="cta-button" href="https://chatgpt.com/g/g-689f9a2a6ba8819190fccba83823ed9b-the-healthy-chef" target="_blank" rel="noopener">
+        בואו נדבר במטבח
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <div class="values-list">
+        <span class="chip">ידע מבוסס מחקר</span>
+        <span class="chip">חוויה אנושית וחמה</span>
+        <span class="chip">פשטות מעל שלמות</span>
+        <span class="chip">הנאה לפני הגבלה</span>
+        <span class="chip">העצמה דרך למידה</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    נבנה באהבה עבור מי שרוצה לבשל טוב לעצמו ולמשפחה. <a href="https://chatgpt.com/g/g-689f9a2a6ba8819190fccba83823ed9b-the-healthy-chef" target="_blank" rel="noopener">פגשו את הסוכן הבריא</a>.
+  </footer>
+
+  <div class="scroll-indicator" aria-hidden="true">⬤</div>
+
+  <script>
+    const animatedCards = document.querySelectorAll('.value-card, .category-card, .faq-card, .testimonial-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.2,
+      rootMargin: '0px 0px -60px 0px'
+    });
+
+    animatedCards.forEach(card => observer.observe(card));
+
+    const indicator = document.querySelector('.scroll-indicator');
+    let hidden = false;
+    window.addEventListener('scroll', () => {
+      const shouldHide = window.scrollY < 120;
+      if (shouldHide !== hidden) {
+        hidden = shouldHide;
+        indicator.style.opacity = hidden ? '0' : '1';
+        indicator.style.pointerEvents = hidden ? 'none' : 'auto';
+      }
+    });
+  </script>
+</body>
+</html>
