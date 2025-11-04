@@ -153,25 +153,95 @@
     }
 
     .hero {
+      position: relative;
+      padding: clamp(3.5rem, 7vw, 5.5rem) 0;
+      display: flex;
+      justify-content: center;
+      isolation: isolate;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto;
+      width: clamp(220px, 28vw, 360px);
+      height: clamp(220px, 28vw, 360px);
+      border-radius: 50%;
+      filter: blur(0);
+      opacity: 0.6;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      top: 12%;
+      right: -8%;
+      background: radial-gradient(circle, rgba(61, 165, 138, 0.25), transparent 65%);
+    }
+
+    .hero::after {
+      bottom: -18%;
+      left: -4%;
+      background: radial-gradient(circle, rgba(253, 211, 136, 0.28), transparent 70%);
+    }
+
+    .hero-text {
+      width: min(100%, 980px);
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 3rem;
-      padding: 4rem 0 5rem;
-      align-items: center;
+      gap: clamp(1.8rem, 4vw, 2.8rem);
+      padding: clamp(2.4rem, 5vw, 3.4rem);
+      background: var(--card-bg);
+      border-radius: 36px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 35px 65px rgba(20, 35, 33, 0.14);
+      backdrop-filter: blur(18px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-text::before {
+      content: "";
+      position: absolute;
+      inset: -40% 35% -35% -35%;
+      background: linear-gradient(135deg, rgba(61, 165, 138, 0.18), transparent 55%),
+                  radial-gradient(circle at top right, rgba(61, 165, 138, 0.16), transparent 60%);
+      opacity: 0.85;
+      z-index: -1;
+      transform: rotate(-4deg);
+    }
+
+    .hero-intro {
+      display: grid;
+      gap: 1.25rem;
+      align-content: start;
     }
 
     .hero-text h1 {
-      font-size: clamp(2.8rem, 5vw, 4rem);
-      margin-bottom: 1.5rem;
+      font-size: clamp(2.6rem, 4.8vw, 3.8rem);
       line-height: 1.3;
       color: var(--text);
+      max-width: 20ch;
     }
 
-    .hero-text p {
-      font-size: 1.1rem;
+    .hero-body {
+      display: grid;
+      gap: 1.4rem;
+      padding: clamp(1.4rem, 3.2vw, 2rem);
+      border-radius: 24px;
+      background: rgba(245, 248, 246, 0.82);
+      border: 1px solid rgba(61, 165, 138, 0.18);
+      box-shadow: inset 0 0 0 1px rgba(61, 165, 138, 0.12);
+    }
+
+    .hero-body p {
+      font-size: 1.05rem;
       color: var(--muted);
-      max-width: 36ch;
-      margin-bottom: 2rem;
+      line-height: 1.85;
+    }
+
+    .hero-text .cta-button {
+      justify-self: start;
     }
 
     .cta-button {
@@ -523,6 +593,25 @@
       50% { transform: translateY(-12px); }
     }
 
+    @media (min-width: 960px) {
+      .hero-text {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: start;
+      }
+
+      .hero-intro {
+        padding-inline-end: clamp(0.5rem, 2vw, 1.4rem);
+      }
+
+      .hero-body {
+        align-self: stretch;
+      }
+
+      .hero-text .cta-button {
+        grid-column: 1 / -1;
+      }
+    }
+
     @media (max-width: 768px) {
       header {
         flex-direction: column;
@@ -551,11 +640,21 @@
       }
 
       .hero {
-        padding: 3rem 0 4rem;
+        padding: 2.8rem 0 4rem;
       }
 
-      .hero-text p {
-        max-width: none;
+      .hero-text {
+        padding: 2rem 1.6rem;
+        gap: 1.6rem;
+      }
+
+      .hero-body {
+        padding: 1.25rem 1.1rem;
+      }
+
+      .hero-text .cta-button {
+        width: 100%;
+        justify-content: center;
       }
     }
 
@@ -609,14 +708,14 @@
   <main>
     <section class="hero" id="vision">
       <div class="hero-text">
-        <div class="badge">עקרונות בישול טבעי, מאוזן וללא עיבוד יתר</div>
-        <h1>היועץ הקולינרי שלך - מערכת צאט שמדריכה לבשל פשוט טעים ובריא.</h1>
-        <p>
-הגישה מבוססת על מבנה הצלחת הבריאה: חצי ירקות – טריים, אפויים או צלויים – רבע חלבון איכותי ורבע פחמימה מורכבת כמו קינואה, כוסמת או קטניות שלמות. כל מתכון נשען על חומרי גלם טבעיים בלבד, ללא סוכר מוסף, קמחים טחונים או מוצרים מעובדים.
-        </p>
-        <p>
-בבסיס הידע עומד מידע קולינרי ותזונתי רחב הכולל מדריכי בישול, מחקרי רכיבים ושיטות שדרוג טעם טבעיות. המטרה היא להפוך בישול בריא למשהו פשוט, הגיוני וטעים – כזה שאפשר באמת להתמיד בו.
-        </p>
+        <div class="hero-intro">
+          <div class="badge">עקרונות בישול טבעי, מאוזן וללא עיבוד יתר</div>
+          <h1>היועץ הקולינרי שלך - מערכת צאט שמדריכה לבשל פשוט טעים ובריא.</h1>
+        </div>
+        <div class="hero-body">
+          <p>הגישה מבוססת על מבנה הצלחת הבריאה: חצי ירקות – טריים, אפויים או צלויים – רבע חלבון איכותי ורבע פחמימה מורכבת כמו קינואה, כוסמת או קטניות שלמות. כל מתכון נשען על חומרי גלם טבעיים בלבד, ללא סוכר מוסף, קמחים טחונים או מוצרים מעובדים.</p>
+          <p>בבסיס הידע עומד מידע קולינרי ותזונתי רחב הכולל מדריכי בישול, מחקרי רכיבים ושיטות שדרוג טעם טבעיות. המטרה היא להפוך בישול בריא למשהו פשוט, הגיוני וטעים – כזה שאפשר באמת להתמיד בו.</p>
+        </div>
         <a class="cta-button" href="https://chatgpt.com/g/g-689f9a2a6ba8819190fccba83823ed9b-the-healthy-chef" target="_blank" rel="noopener">
           עיון בהנחיות המלאות של הסוכן
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
